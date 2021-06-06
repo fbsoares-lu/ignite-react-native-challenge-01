@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Alert } from 'react-native';
 
 import { Header } from '../components/Header';
 import { MyTasksList } from '../components/MyTasksList';
@@ -14,25 +15,21 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    if (newTaskTitle !== "") {
-      setTasks([...tasks, {id: new Date().getTime(), done: false, title: newTaskTitle}]);
-      
+    if (newTaskTitle === '') {
+      Alert.alert('O campo está vazio, por favor digite a tarefa!');
+      return;
     }
-    //TODO - add new task if it's not empty
+    
+    setTasks([...tasks, {id: new Date().getTime(), done: false, title: newTaskTitle}]);
   }
 
   function handleMarkTaskAsDone(id: number) {
-    const checkIdTask = tasks.find(task => task.id === id);
+    const task = tasks.filter((item) => item.id === id)[0];
 
-    if (checkIdTask) {
-      if (checkIdTask?.done === true) {
-        checkIdTask.done = false;
-        setTasks([...tasks, checkIdTask]);
-      } else {
-        checkIdTask.done = true;
-        setTasks([...tasks, checkIdTask]);
-      }
-    }
+    task.done = !task?.done;
+
+    const newTasks = [... new Set([task, ...tasks])];
+    setTasks(newTasks);
 
     //TODO - mark task as done if exists
   }

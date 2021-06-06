@@ -13,7 +13,6 @@ export function TodoInput({ addTask }: TodoInputProps) {
   function handleAddNewTask() {
     addTask(task);
     setTask('');
-    return;
     //TODO - Call addTask and clean input value 
   }
 
@@ -23,6 +22,7 @@ export function TodoInput({ addTask }: TodoInputProps) {
         style={styles.input} 
         placeholder="Adicionar novo todo..."
         returnKeyType="send"
+        value={task}
         onChangeText={setTask}
         onSubmitEditing={handleAddNewTask}
         //TODO - use value, onChangeText and onSubmitEditing props

@@ -31,16 +31,16 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
             activeOpacity={0.7}
             onPress={() => onPress(item.id)}
             onLongPress={() => onLongPress(item.id)}
-            style={styles.taskButtonDone}
+            style={item.done === true ? styles.taskButtonDone : styles.taskButton}
             //TODO - use onPress, onLongPress and style props
           >
             <View 
-              style={styles.taskMarkerDone}
+              style={item.done === true ? styles.taskMarkerDone : styles.taskMarker}
               testID={`marker-${index}`}
               //TODO - use style prop 
             />
             <Text 
-              style={styles.taskTextDone}
+              style={item.done === true ? styles.taskTextDone : styles.taskText}
               //TODO - use style prop
             >
               {item.title}
